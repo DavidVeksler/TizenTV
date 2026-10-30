@@ -1,6 +1,6 @@
 # TizenTV
 
-POC: persistent full-screen React+TS dashboard on a Samsung Frame (QN43LS03DAFXZA, 2024, Tizen 8.0).
+POC: persistent full-screen React+TS dashboard on a Samsung Frame (QN43LS03DAFXZA, 2024, Tizen 9.0 per sdb capability).
 
 | Task | Doc |
 |---|---|

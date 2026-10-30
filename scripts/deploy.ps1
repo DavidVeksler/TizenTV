@@ -29,12 +29,16 @@ if (-not $Force) {
 # Package + sign
 Remove-Item dist -Recurse -Force -ErrorAction SilentlyContinue
 New-Item dist -ItemType Directory | Out-Null
-Run 'tizen', 'package', '-t', 'wgt', '-s', $Profile, '-o', 'dist', '--', 'build/www'
-$wgt = (Get-ChildItem dist\*.wgt | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
+# Absolute paths: tizen.bat resolves relative ones against its own bin dir.
+Run 'tizen', 'package', '-t', 'wgt', '-s', $Profile, '-o', (Join-Path (Get-Location) 'dist'), '--', (Join-Path (Get-Location) 'build\www')
+# tizen install fails on file names containing spaces (Tizen 9 TV): rename to a plain name.
+$wgt = (Get-ChildItem dist\*.wgt | Sort-Object LastWriteTime -Descending | Select-Object -First 1)
+Rename-Item $wgt.FullName 'FrameDash.wgt'
+$wgt = Join-Path (Get-Location) 'dist\FrameDash.wgt'
 Write-Host "signed package: $wgt"
 
 # Transfer + launch
 Run 'sdb', 'connect', $TvIp
-Run 'tizen', 'install', '-n', $wgt, '-s', $Target
+Run 'tizen', 'install', '-n', 'FrameDash.wgt', '-s', $Target, '--', (Join-Path (Get-Location) 'dist')
 Run 'tizen', 'run', '-p', $AppId, '-s', $Target
 Write-Host "Launched $AppId on $Target"

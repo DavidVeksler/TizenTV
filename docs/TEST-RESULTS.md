@@ -6,11 +6,11 @@
 
 | Item | Value |
 |---|---|
-| TV firmware / Tizen version | |
-| Tizen Studio + TV extension versions | |
-| Certificate profile + expiry date | |
-| Install date/time | |
-| Developer Mode IP setting | |
+| TV firmware / Tizen version | Tizen 9.0 (`sdb capability`, sdbd 3.8.11_TV_REL), QN43LS03DAFXZA, IP 192.168.0.82 |
+| Tizen Studio + TV extension versions | Tizen Studio 6.1 CLI, Tizen CLI 2.5.25, sdb 4.2.36; TV extension not installed (not needed to package/install) |
+| Certificate profile + expiry date | `veksler` (Samsung, Public, DUID ZPCDAJCBFOHQU); expires 2027-10-30 |
+| Install date/time | 2026-10-30 (installed with `scripts/deploy.ps1`; app seen full screen on the TV by David) |
+| Developer Mode IP setting | sdb connects from this PC (192.168.0.44) |
 
 ## Persistence scenarios (run each independently, starting from a confirmed working install)
 

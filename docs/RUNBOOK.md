@@ -4,7 +4,7 @@ Host: Windows (PowerShell) or Linux/macOS (bash). Free Samsung account required;
 
 ## 1. One-time setup
 
-1. **Tizen version.** TV: Settings > Support > About This TV, note the software version. A 2024 Frame should be Tizen 8.0 (2023 = 7.0, 2024 = 8.0); confirm, don't assume. After connecting (step 3), `sdb -s <ip>:26101 capability` prints `platform_version`.
+1. **Tizen version.** TV: Settings > Support > About This TV, note the software version. The QN43LS03DAFXZA reported Tizen 9.0 (sdb capability, 2026-10-30), not the 8.0 first assumed; confirm, don't assume. After connecting (step 3), `sdb -s <ip>:26101 capability` prints `platform_version`.
 2. **Tizen Studio** (current release) from developer.samsung.com/smarttv/develop/getting-started/setting-up-sdk. In Package Manager install *Tizen Studio > Main SDK + CLI* and, under *Extension SDK*, **TV Extensions** (matching or newest) and **Samsung Certificate Extension**. Needs Java 11+ (bundled in recent installers).
 3. **PATH:** add `<TizenStudio>/tools/ide/bin` (`tizen`) and `<TizenStudio>/tools` (`sdb`).
 4. **Node 18+**.
@@ -35,9 +35,10 @@ The script: preflight, `npm ci`, typecheck, esbuild bundle to `build/www`, confi
 Manual equivalent:
 ```
 npm ci && npm run build
-tizen package -t wgt -s <profile> -o dist -- build/www
+tizen package -t wgt -s <profile> -o <abs-path>/dist -- <abs-path>/build/www   # absolute paths: tizen.bat resolves relative ones against its own bin dir
+mv "dist/Frame Dashboard.wgt" dist/FrameDash.wgt                                # `tizen install` fails on file names with spaces
 sdb connect <tv-ip>
-tizen install -n "dist/Frame Dashboard.wgt" -s <tv-ip>:26101
+tizen install -n FrameDash.wgt -s <tv-ip>:26101 -- dist
 tizen run -p FrameDash1.Dashboard -s <tv-ip>:26101
 ```
 
@@ -50,6 +51,10 @@ Re-run the deploy script. Same app id and same certificate overwrites in place. 
 Left/Right move focus; Enter opens a tile; Back returns to the dashboard; Back on the dashboard exits to the TV (platform default, not intercepted); **Red** toggles the hidden diagnostics overlay (launch count, gap since the app last ran, JS stalls, heap).
 
 ## 7. Troubleshooting
+
+- Windows tooling (learned 2026-10-30): the Tizen Studio web-cli installer asks for admin; run it with `__COMPAT_LAYER=RunAsInvoker` and `--accept-license <dir>` to install into the user profile. `package-manager-cli` then failed to update the *Web CLI* package (it rolls back and deletes `tools/ide`), so the CLI packages (`new-web-cli`, `new-common-cli`, `embedded-java`) and `certificate-manager-product` were unzipped by hand from `download.tizen.org/sdk/tizenstudio/official/binary` into the SDK folder (verify SHA256 against `pkg_list_windows-64`). The Samsung cert plugin (`cert-add-on` jar) was copied into `tools/certificate-manager/plugins` and appended to its `bundles.info`. Package manager itself needs JDK 8 on PATH; `tizen` uses the bundled `jdk`.
+- Find the TV: scan the LAN for TCP 26101 (sdb); `sdb -s <ip>:26101 shell 0 getduid` prints the DUID.
+- `tizen install` prints only "Failed to install Tizen application." when the `.wgt` name contains a space; use `FrameDash.wgt` (the deploy scripts do). `sdb push` + `sdb shell 0 vd_appinstall FrameDash1 <path>` prints real progress/errors.
 
 - `sdb connect` fails: Developer Mode off, Host PC IP wrong (TV only accepts the IP configured in step 2), different VLAN, or TV rebooted into a state where Developer Mode was reset. Re-enter 12345.
 - Install error about certificate/DUID: distributor certificate was created for a different DUID; recreate it with the TV connected.

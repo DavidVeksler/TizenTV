@@ -27,12 +27,15 @@ fi
 
 # Package + sign
 rm -rf dist && mkdir dist
-tizen package -t wgt -s "$PROFILE" -o dist -- build/www
-WGT="$(ls -t dist/*.wgt | head -1)"
+# Absolute paths: tizen.bat resolves relative ones against its own bin dir.
+tizen package -t wgt -s "$PROFILE" -o "$PWD/dist" -- "$PWD/build/www"
+# tizen install fails on file names containing spaces (Tizen 9 TV): rename to a plain name.
+mv "$(ls -t dist/*.wgt | head -1)" dist/FrameDash.wgt
+WGT=dist/FrameDash.wgt
 echo "signed package: $WGT"
 
 # Transfer + launch
 sdb connect "$TV_IP"
-tizen install -n "$WGT" -s "$TARGET"
+tizen install -n FrameDash.wgt -s "$TARGET" -- dist
 tizen run -p "$APP_ID" -s "$TARGET"
 echo "Launched $APP_ID on $TARGET"
