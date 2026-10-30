@@ -1,6 +1,6 @@
 # Recommendation
 
-**Provisional: proceed with native Tizen sideloading, conditional on tests 3-6 in docs/TEST-RESULTS.md.** This is a prior, not a result; no scenario has been run on the TV.
+**Proceed with native Tizen sideloading (2026-10-30, partial evidence).** Install works, the app survives a cold power cycle (test 5) and Autorun Last App launches it (test 6). Tests 1-4, 7 and the 2 h stability run have not been run; the screen-saver risk (4) and certificate expiry (2027-10-30) remain open.
 
 Why the prior leans toward proceed: the app is a static bundle with no backend, the free path (Samsung account, Tizen Studio, TV extensions, Developer Mode, Samsung-signed certificate for the TV's DUID) is the documented route and community sideloading tools use it, and the use case tolerates manual relaunch.
 
