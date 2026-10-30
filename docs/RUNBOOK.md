@@ -53,4 +53,5 @@ Left/Right move focus; Enter opens a tile; Back returns to the dashboard; Back o
 
 - `sdb connect` fails: Developer Mode off, Host PC IP wrong (TV only accepts the IP configured in step 2), different VLAN, or TV rebooted into a state where Developer Mode was reset. Re-enter 12345.
 - Install error about certificate/DUID: distributor certificate was created for a different DUID; recreate it with the TV connected.
+- Install error naming a privilege: `public/config.xml` declares `http://developer.samsung.com/privilege/screensaver` for the experimental screen-saver request. This privilege name is unverified on hardware; if the TV rejects it, delete that line (the overlay will then show `unavailable`) and note it in docs/TEST-RESULTS.md.
 - Blank/black app: check `sdb dlog` or Web Inspector (`tizen run` with `-d`, or Tizen Studio's debug action) for script errors.

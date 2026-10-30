@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Gate pushes on the same checks the deploy script runs. Enable: git config core.hooksPath .githooks
+set -euo pipefail
+cd "$(dirname "$0")/.."
+npm run typecheck
+npm run build

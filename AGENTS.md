@@ -11,3 +11,5 @@ POC: persistent full-screen React+TS dashboard on a Samsung Frame (QN43LS03DAFXZ
 Layout: `src/` app (esbuild IIFE bundle, no framework tooling), `public/` config.xml + index.html + icon, `scripts/` build and deploy twins (bash + PowerShell).
 
 Rules: no new runtime deps; do not deploy to the TV without the user's go-ahead; never commit certificates (`*.p12`) or passwords.
+
+Gates: `.githooks/pre-push` (enable with `git config core.hooksPath .githooks`) and `.github/workflows/ci.yml` both run typecheck + build.
