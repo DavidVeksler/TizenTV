@@ -22,8 +22,8 @@ For each: do the action, then open Smart Hub > Apps (Downloaded/Developer apps),
 | 2 | Exit and reopen | Back on the dashboard, relaunch; also leave via Home and return | | | |
 | 3 | TV off/on via remote | Hold power until off, power on | | | |
 | 4 | TV off/on after 10 min | Off 10+ min via remote, power on | | | |
-| 5 | Full reboot / cold power cycle | Unplug 60 s (or power button + wall), power on. Check whether Developer Mode is still On | | | | pass | App survived; per David, no detail recorded (Developer Mode state not separately noted) | 2026-10-30 |
-| 6 | Autorun Last App | Settings > General > Smart Features > Autorun Last App ON; leave the app running, power off, power on. Record whether it launches. Repeat with Art Mode/Ambient behavior noted (Frame powers on into Art Mode by default) | | | | pass | Autorun Last App launches the dashboard after power off/on (per David) | 2026-10-30 |
+| 5 | Full reboot / cold power cycle | Unplug 60 s (or power button + wall), power on. Check whether Developer Mode is still On | pass | App survived; per David, no detail recorded (Developer Mode state not separately noted) | 2026-10-30 |
+| 6 | Autorun Last App | Settings > General > Smart Features > Autorun Last App ON; leave the app running, power off, power on. Record whether it launches. Repeat with Art Mode/Ambient behavior noted (Frame powers on into Art Mode by default) | pass | Autorun Last App launches the dashboard after power off/on (per David) | 2026-10-30 |
 | 7 | Streaming app then return | Open Netflix/YouTube, exit, relaunch dashboard from Apps | | | |
 
 Additional checks worth recording: after an overnight idle; after a firmware update if one occurs (Developer Mode and sideloaded apps may be cleared); the day the certificate nears expiry.
