@@ -1,0 +1,21 @@
+{
+  "name": "tizen-frame-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "POC: persistent full-screen dashboard on a Samsung Frame (Tizen) TV",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3"
+  }
+}
