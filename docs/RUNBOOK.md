@@ -60,3 +60,10 @@ Left/Right move focus; Enter opens a tile; Back returns to the dashboard; Back o
 - Install error about certificate/DUID: distributor certificate was created for a different DUID; recreate it with the TV connected.
 - Install error naming a privilege: `public/config.xml` declares `http://developer.samsung.com/privilege/screensaver` for the experimental screen-saver request. This privilege name is unverified on hardware; if the TV rejects it, delete that line (the overlay will then show `unavailable`) and note it in docs/TEST-RESULTS.md.
 - Blank/black app: check `sdb dlog` or Web Inspector (`tizen run` with `-d`, or Tizen Studio's debug action) for script errors.
+
+## Crypto heatmap app
+
+- The app needs the `internet` privilege and `<access origin="*">` (both in `public/config.xml`). Reinstalling over the earlier placeholder build works because the app id is unchanged.
+- API key: put `COINGECKO_API_KEY=...` in `.env.local` (gitignored) or export it before `npm run build`. Without it the app uses the keyless public tier, which rate-limits sooner.
+- Local preview: `npm run build`, then serve `build/www` from any static server and open it at 1920x1080 (desktop keys: arrows, Enter, `t`, `s`, `d`). Serve a copy, not the folder itself: an open handle blocks the build's `rmSync`.
+- Data is cached in localStorage, so a relaunch paints the last snapshot immediately; the footer shows its age and turns amber if refreshes keep failing.

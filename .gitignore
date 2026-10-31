@@ -4,3 +4,5 @@ dist/
 *.wgt
 *.p12
 *.pwd
+.env.local
+.env
